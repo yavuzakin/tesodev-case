@@ -25,7 +25,7 @@ function Landing() {
 
   return (
     <div className="landing-container">
-      <img className="landing-img" src="/images/landing-logo.png" />
+      <img className="landing-img" src="/images/landing-logo.png" alt="logo" />
       <span className="logo-text">Search web app</span>
       <Search data={data} setResults={setResults} setPage={() => {}} />
       {results.length !== 0 && (

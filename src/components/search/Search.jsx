@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { filterData } from "../../data/data";
+import { update } from "../../redux/inputSlice";
 
 import "./search.css";
 
 function Search({ data, setResults, setPage }) {
-  const [input, setInput] = useState("");
+  const searchInput = useSelector((state) => state.input.searchInput);
+  const [input, setInput] = useState(searchInput);
+  const dispatch = useDispatch();
 
   const searchHandler = () => {
     const filteredData = filterData(data, input.trim());
+    dispatch(update({ input }));
     setResults(filteredData);
     setPage(1);
   };

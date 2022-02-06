@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import Pagination from "../../components/pagination/Pagination";
 import Results from "../../components/results/Results";
@@ -9,6 +10,7 @@ import {
   orderedData,
   showData,
 } from "../../data/data";
+import { update } from "../../redux/inputSlice";
 
 import "./search-results.css";
 
@@ -20,14 +22,14 @@ function SearchResults() {
   const [page, setPage] = useState(1);
   const [results, setResults] = useState(location.state);
   const pageCount = Math.ceil(results.length / 6);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const modalHandler = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const navigateToLandingPage = () => {
-    navigate("/");
+  const initializeSearchInput = () => {
+    dispatch(update({ input: "" }));
   };
 
   useEffect(() => {
@@ -37,15 +39,21 @@ function SearchResults() {
   return (
     <div className="search-results-page-container">
       <div className="top-section-container">
-        <img
-          onClick={navigateToLandingPage}
-          className="search-results-img"
-          src="/images/search-results-logo.png"
-        />
+        <Link to={"/"} onClick={initializeSearchInput}>
+          <img
+            className="search-results-img"
+            src="/images/search-results-logo.png"
+            alt="logo"
+          />
+        </Link>
         <Search data={data} setResults={setResults} setPage={setPage} />
       </div>
       <div className="order-by-container">
-        <img src="/images/updown-arrows.png" className="updown-arrows" />
+        <img
+          src="/images/updown-arrows.png"
+          className="updown-arrows"
+          alt="icon"
+        />
         <button
           disabled={results.length === 0}
           onClick={modalHandler}
