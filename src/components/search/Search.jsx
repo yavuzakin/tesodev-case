@@ -8,10 +8,16 @@ import "./search.css";
 function Search({ data, setResults, setPage }) {
   const searchInput = useSelector((state) => state.input.searchInput);
   const [input, setInput] = useState(searchInput);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
   const searchHandler = () => {
     const filteredData = filterData(data, input.trim());
+    if (filteredData.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
     dispatch(update({ input }));
     setResults(filteredData);
     setPage(1);
@@ -22,7 +28,7 @@ function Search({ data, setResults, setPage }) {
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="search-input"
+        className={error ? "search-input error" : "search-input"}
       />
       <button onClick={searchHandler} className="search-button">
         Search

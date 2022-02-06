@@ -20,6 +20,19 @@
   flex: 9;
 }
 
+.search-input:hover {
+  border: 0.0625rem solid rgba(0, 0, 0, 0.6);
+  background: rgba(100, 100, 100, 0.08);
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.error {
+  border: 0.0625rem solid #ff0000;
+}
+
 .search-button {
   border: none;
   border-radius: 0.5rem;
